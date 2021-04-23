@@ -32,6 +32,7 @@ namespace LFHotfixHelper
             }
             else
             {
+                MessageBox.Show("Lütfen League of Legends'in kurulu olduğu dizini seçiniz! (Örn : C:/Riot Games/League of Legends)", "Hotfix Helper", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
                 if (folderBrowser.ShowDialog() == DialogResult.OK)
                 {
@@ -58,11 +59,6 @@ namespace LFHotfixHelper
                 startInfo.FileName = lolPath + @"\LeagueClient.exe";
                 startInfo.Arguments = "--allow-multiple-clients --legacy-SSL --no-proxy";
                 Process.Start(startInfo);
-
-                while (Process.GetProcessesByName("LeagueClientUx").Length == 0)
-                {
-
-                }
                 Environment.Exit(0);
             }
             else
@@ -141,12 +137,6 @@ namespace LFHotfixHelper
                 startInfo.FileName = lolPath + @"\LeagueClient.exe";
                 startInfo.Arguments = "--allow-multiple-clients --legacy-SSL --no-proxy";
                 Process.Start(startInfo);
-
-                this.Hide();
-                while (Process.GetProcessesByName("LeagueClientUx").Length == 0)
-                {
-
-                }
                 Environment.Exit(0);
             }
         }
@@ -154,6 +144,11 @@ namespace LFHotfixHelper
         void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             pbProgress.Value = e.ProgressPercentage;
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
